@@ -38,5 +38,25 @@ cd sky130RTLDesignAndSynthesisWorkshop
 cd verilog_files/
 ls
 ```
+## After  cloning the git
+
+```bash
+iverilog good_mux.v tb_good_mux.v
+ls
+# To dump the vcd file
+./a.out
+gtkwave tb_good_mux.vcd
+```
+To install gvim:
+``` bash
+apt install vim-gtk3 -y
+```
+If you want to change the desgin
+```bash
+gvim tb_good_mux.v -o good_mux.v
+```
+
+---
+**Waveform**
 
 
