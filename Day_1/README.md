@@ -58,5 +58,5 @@ gvim tb_good_mux.v -o good_mux.v
 
 ---
 **Waveform**
-
+![Wave Form](https://github.com/Rahul-Sivesh-11/RISC-V_Tape_Out_Week_1/blob/main/Images/WhatsApp%20Image%202025-09-24%20at%2018.51.14_d6a3b090.jpg)
 
