@@ -16,7 +16,7 @@ A design is the collection of Verilog codes that implement the intended function
 - A test bench is created to apply stimulus to the design and verify its functionality.
 - It does not contain primary inputs or outputs.
 - Only the design module has primary inputs and outputs.
-![Test Bench](https://github.com/Rahul-Sivesh-11/RISC-V_Tape_Out/blob/main/Week_1/Images/Screenshot%202025-09-24%20113002.png)
+![Test Bench](https://github.com/Rahul-Sivesh-11/RISC-V_Tape_Out_Week_1/blob/main/Images/Screenshot%202025-09-24%20113002.png)
 ### GTKWave
 - It is used for viewing the waveform.
 
