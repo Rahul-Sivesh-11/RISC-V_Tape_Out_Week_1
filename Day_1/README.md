@@ -59,4 +59,39 @@ gvim tb_good_mux.v -o good_mux.v
 ---
 **Waveform**
 ![Wave Form](https://github.com/Rahul-Sivesh-11/RISC-V_Tape_Out_Week_1/blob/main/Images/WhatsApp%20Image%202025-09-24%20at%2018.51.14_d6a3b090.jpg)
+### Verilog Code Analysis
+
+**The code for the multiplexer (`good_mux.v`):**
+
+```verilog
+module good_mux (input i0, input i1, input sel, output reg y);
+always @ (*)
+begin
+    if(sel)
+        y <= i1;
+    else 
+        y <= i0;
+end
+endmodule
+```
+
+###  **How It Works**
+
+**Inputs:**
+- Data Inputs: `i0`, `i1`
+- Selection Line: `sel`
+
+**Registered Output:** `y`
+
+**Logic:**
+  - If `sel`= 1, `y`=`i1`
+  - If `sel`= 0, `y`=`i0`.
+
+---
+## **Introduction to Yosys**
+ - Yosys is a powerful open-source synthesis tool for digital hardware. 
+ - It takes your Verilog code and converts it into a gate-level netlist.
+ - The set of primary inputs and outputs of the design code should be same.
+ - Verification of the netlist file can be done by generating gtkwave for netlist file.
+ - The same TB can be used in verification process.
 
