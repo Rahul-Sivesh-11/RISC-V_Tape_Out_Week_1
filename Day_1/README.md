@@ -94,4 +94,4 @@ endmodule
  - The set of primary inputs and outputs of the design code should be same.
  - Verification of the netlist file can be done by generating gtkwave for netlist file.
  - The same TB can be used in verification process.
-![yosys](
+![yosys](https://github.com/Rahul-Sivesh-11/RISC-V_Tape_Out_Week_1/blob/main/Images/Screenshot%202025-09-24%20185438.png)
