@@ -146,3 +146,4 @@ stat
 ---
 ### **Synthesis Outputs:**
 #### Netlist Dot File:
+![Dot File](https://github.com/Rahul-Sivesh-11/RISC-V_Tape_Out_Week_1/blob/main/Images/WhatsApp%20Image%202025-09-24%20at%2019.00.04_0df42d2a.jpg)
