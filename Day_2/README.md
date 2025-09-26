@@ -97,4 +97,7 @@ write_verilog ~/vsd/VLSI/multiple_modules_hier
 ```
 
 This approach keeps sub-modules separate, making it easier to debug, reuse, and manage large designs, while still producing a synthesized netlist compatible with the SkyWater 130nm PDK.
-
+![Code](https://github.com/Rahul-Sivesh-11/RISC-V_Tape_Out_Week_1/blob/main/Images/Screenshot%202025-09-26%20155003.png)
+### Verify the Synthesis:
+- **Netlist Dot file**
+![netlist](
