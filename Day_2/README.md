@@ -43,4 +43,28 @@ To open the sky130_fd_sc_hd__tt_025C_1v80.lib file:
 ```shell
 vim sky130_fd_sc_hd__tt_025C_1v80.lib
 ```
-![To open the file](
+![To open the file](https://github.com/Rahul-Sivesh-11/RISC-V_Tape_Out_Week_1/blob/main/Images/Screenshot%202025-09-26%20150019.png)
+### What is Synthesis?
+Synthesis is the process of transforming RTL code (written in Verilog or VHDL) into a gate-level netlist using a standard cell library. In this step, the high-level design description is translated into actual logic gates and flip-flops that can be implemented and eventually fabricated on silicon.
+### Hierarchical Synthesis
+-In hierarchical synthesis, the design is compiled module by module, maintaining the original RTL hierarchy.
+#### Advantages:
+- Each module is synthesized independently.
+- Preserves the design structure → makes debugging and reuse easier.
+- Netlist remains organized according to modules.
+- Simplifies debugging and management of large projects.
+- Reusable blocks can be synthesized once and used multiple times.
+- More efficient in terms of runtime and memory for very large designs.
+#### Disadvantages:
+- Limited optimization across module boundaries.
+- May result in slightly higher area or slower timing compared to flat synthesis.
+### Flat Synthesis
+In flat synthesis, the design is treated as a single block, with module boundaries removed during compilation.
+#### Advantages:
+- Enables cross-module optimizations.
+- Can produce better results for area, timing, and power.
+- Often delivers improved overall performance.
+- Generates a single-level netlist.
+#### Disadvantages:
+- Higher memory usage and longer runtime for large designs.
+- Debugging and modifying specific parts of the design becomes difficult.
