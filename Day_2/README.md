@@ -196,4 +196,83 @@ write_verilog ~/VSD/photos/multiple_modules_flat.v
 `write_verilog` outputs the flat netlist ready for further analysis or place-and-route.
 ![Code](https://github.com/Rahul-Sivesh-11/RISC-V_Tape_Out_Week_1/blob/main/Images/Screenshot%202025-09-26%20155737.png)
 #### Netlist dot file
-    
+![Netlist dot file](https://github.com/Rahul-Sivesh-11/RISC-V_Tape_Out_Week_1/blob/main/Images/Screenshot%202025-09-26%20160016.png)
+### Statistics
+
+```bash
+
+=== multiple_modules ===
+
+   Number of wires:                  5
+   Number of wire bits:              5
+   Number of public wires:           5
+   Number of public wire bits:       5
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                  2
+     sub_module_01                   1
+     sub_module_02                   1
+
+=== sub_module_01 ===
+
+   Number of wires:                  3
+   Number of wire bits:              3
+   Number of public wires:           3
+   Number of public wire bits:       3
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                  1
+     $_AND_                          1
+
+=== sub_module_02 ===
+
+   Number of wires:                  3
+   Number of wire bits:              3
+   Number of public wires:           3
+   Number of public wire bits:       3
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                  1
+     $_OR_                           1
+
+=== design hierarchy ===
+
+   multiple_modules                  1
+     sub_module_01                   1
+     sub_module_02                   1
+
+   Number of wires:                 11
+   Number of wire bits:             11
+   Number of public wires:          11
+   Number of public wire bits:      11
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                  2
+     $_AND_                          1
+     $_OR_                           1
+```
+### Sub-Module Synthesis
+RTL designs are usually structured in a modular fashion, containing several functional blocks or sub-modules. Sub-module synthesis focuses on compiling each of these blocks independently rather than the entire design at once.
+#### Why is sub-module synthesis important?
+- Optimization and Area Efficiency: By handling sub-modules separately, the synthesis tool can fine-tune each block for better performance. This includes logic simplification, technology mapping, and minimizing silicon area.
+- Faster Processing: Since sub-modules are independent, they can be synthesized in parallel, reducing overall runtime. For large-scale designs, this parallelism greatly improves synthesis turnaround time.
+- ### Open the directory where you want to run the sub-module synthesis
+
+```bash
+cd ~/vcd/photos
+yosys
+```
+*Inside yosys:*
+
+```bash
+read_liberty -lib ~/vsd/VLSI/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+read_verilog ~/vsd/VLSI/sky130RTLDesignAndSynthesisWorkshop/verilog_files/multiple_modules.v
+synth -top sub_module1
+abc -liberty ~/vsd/VLSI/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+show
+show -format png
+```
