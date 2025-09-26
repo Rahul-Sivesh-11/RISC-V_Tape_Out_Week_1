@@ -194,4 +194,6 @@ write_verilog ~/VSD/photos/multiple_modules_flat.v
 `flatten` removes module hierarchy so the tool can optimize across the entire design.
 
 `write_verilog` outputs the flat netlist ready for further analysis or place-and-route.
+![Code](https://github.com/Rahul-Sivesh-11/RISC-V_Tape_Out_Week_1/blob/main/Images/Screenshot%202025-09-26%20155737.png)
+#### Netlist dot file
     
