@@ -68,3 +68,33 @@ In flat synthesis, the design is treated as a single block, with module boundari
 #### Disadvantages:
 - Higher memory usage and longer runtime for large designs.
 - Debugging and modifying specific parts of the design becomes difficult.
+![multiple modules](https://github.com/Rahul-Sivesh-11/RISC-V_Tape_Out_Week_1/blob/main/Images/Screenshot%202025-09-26%20154617.png)
+## Hierarchical Synthesis Workflow
+### Hierarchical synthesis of multiple_modules.v using Yosys:
+
+### 1. Open the directory where you would want to run the synthesis
+
+```bash
+cd ~/vcd/photos
+```
+
+### 2. Run hierarchical synthesis in Yosys:
+```bash
+yosys
+```
+
+Inside yosys,
+
+```bash
+read_liberty -lib ~/vsd/VLSI/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+read_verilog ~/vsd/VLSI/sky130RTLDesignAndSynthesisWorkshop/verilog_files/multiple_modules.v 
+dfflibmap -liberty ~/vsd/VLSI/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd__tt_025C_1v80.lib  
+abc -liberty ~/vsd/VLSI/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd__tt_025C_1v80.lib  
+synth -top multiple_modules
+show multiple_modules
+show -format png multiple_modules
+write_verilog ~/vsd/VLSI/multiple_modules_hier
+```
+
+This approach keeps sub-modules separate, making it easier to debug, reuse, and manage large designs, while still producing a synthesized netlist compatible with the SkyWater 130nm PDK.
+
