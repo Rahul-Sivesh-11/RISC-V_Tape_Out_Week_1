@@ -100,4 +100,98 @@ This approach keeps sub-modules separate, making it easier to debug, reuse, and 
 ![Code](https://github.com/Rahul-Sivesh-11/RISC-V_Tape_Out_Week_1/blob/main/Images/Screenshot%202025-09-26%20155003.png)
 ### Verify the Synthesis:
 - **Netlist Dot file**
-![netlist](
+![netlist](https://github.com/Rahul-Sivesh-11/RISC-V_Tape_Out_Week_1/blob/main/Images/Screenshot%202025-09-26%20155238.png)
+### Statistics
+
+ ```bash
+
+=== multiple_modules ===
+
+   Number of wires:                  5
+   Number of wire bits:              5
+   Number of public wires:           5
+   Number of public wire bits:       5
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                  2
+     sub_module1                     1
+     sub_module2                     1
+
+=== sub_module_01 ===
+
+   Number of wires:                  3
+   Number of wire bits:              3
+   Number of public wires:           3
+   Number of public wire bits:       3
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                  1
+     $_AND_                          1
+
+=== sub_module_02 ===
+
+   Number of wires:                  3
+   Number of wire bits:              3
+   Number of public wires:           3
+   Number of public wire bits:       3
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                  1
+     $_OR_                           1
+
+=== design hierarchy ===
+
+   multiple_modules                  1
+     sub_module_01                   1
+     sub_module_02                   1
+
+   Number of wires:                 11
+   Number of wire bits:             11
+   Number of public wires:          11
+   Number of public wire bits:      11
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                  2
+     $_AND_                          1
+     $_OR_                           1
+```
+---
+
+## Flat Synthesis Workflow
+
+### Flat synthesis of multiple_modules.v using Yosys:
+
+### 1. Open the directory where you want to run the synthesis
+
+```bash
+cd ~/VCD/pictures
+```
+### 2. Run flat synthesis in Yosys:
+
+```bash
+yosys
+```
+Inside yosys, 
+```bash
+read_verilog ~/VSD/VLSI/sky130RTLDesignAndSynthesisWorkshop/verilog_files/multiple_modules.v                         
+synth -top multiple_modules
+abc -liberty ~/VSD/VLSI/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd__tt_025C_1v80.lib      
+flatten
+show multiple_modules
+show -format png multiple_modules
+write_verilog ~/VSD/photos/multiple_modules_flat.v
+```
+#### Explanation:
+
+`synth -top` generates the gate-level netlist of the flattened design.
+
+`abc` performs technology mapping and logic optimization.
+
+`flatten` removes module hierarchy so the tool can optimize across the entire design.
+
+`write_verilog` outputs the flat netlist ready for further analysis or place-and-route.
+    
