@@ -43,3 +43,4 @@ To open the sky130_fd_sc_hd__tt_025C_1v80.lib file:
 ```shell
 vim sky130_fd_sc_hd__tt_025C_1v80.lib
 ```
+![To open the file](
