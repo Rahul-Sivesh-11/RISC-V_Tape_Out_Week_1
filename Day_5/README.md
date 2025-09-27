@@ -326,17 +326,15 @@ endmodule
 ![Waveform](https://github.com/Rahul-Sivesh-11/RISC-V_Tape_Out_Week_1/blob/main/Images/2025-09-27%20(53).png)
 #### Netlist Dot File
 ![Netlist](https://github.com/Rahul-Sivesh-11/RISC-V_Tape_Out_Week_1/blob/main/Images/2025-09-27%20(55).png)
-**Full Adder Module:**
-```verilog
-module fa (input a, input b, input c, output co, output sum);
-    assign {co, sum} = a + b + c;
-endmodule
-```
-![gtk wave](https://github.com/Rahul-Sivesh-11/RISC-V_Tape_Out_Week_1/blob/main/Images/2025-09-27%20(43).png)
----
+
 ## Summary
-- Write complete if–else and case statements to prevent accidental latch inference.
-- Leverage for-loops and generate blocks to create scalable and synthesizable designs.
-- Ensure that all signals are assigned on every path in combinational logic to avoid unintended storage elements.
-- Reinforce learning through lab exercises, applying concepts with real Verilog code and synthesis analysis.
+- If–Else & Case: In Verilog, if–else is used for conditional decision-making, while case is more efficient for handling multiple selection options. Leaving out branches in either construct can unintentionally create latches that preserve old values.
+- Inferred Latches: These appear when outputs are not defined in every possible condition (e.g., incomplete if, case, or partial assignments). Always include an else or default clause to avoid them.
+- For Loops: Placed inside always blocks, they allow repeated assignments during simulation, making code more concise.
+- Generate Loops: Used at synthesis time to replicate hardware structures, enabling scalable designs such as adders or multiplexers.
+### Lab Takeaways:
+- Incomplete if/case statements lead to inferred latches.
+- mux_generate and demux_generate illustrate how for loops reduce code duplication.
+- An 8-bit ripple-carry adder built with generate for shows efficient hardware replication.
+### Conclusion: Writing Verilog with complete conditionals and smart use of loops ensures cleaner, latch-free, and scalable RTL designs.
 ---
