@@ -169,5 +169,171 @@ To see the verilog logic of Lab 2.
 ```bash
 gedit opt_check2.v
 ```
+![ veriloglogic](https://github.com/Rahul-Sivesh-11/RISC-V_Tape_Out_Week_1/blob/main/Images/2025-09-27%20(5).png)
+#### Code analysis:
+1. if a is true then the output is 1.
+2. else 0.
 
+#### launch yosys:
+```bash
+yosys
+```
+Inside yosys:
+```bash
+read_liberty -lib ~/VSD/VLSI/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+read_verilog opt_check2.v
+synth -top opt_check2
+opt_clean -purge
+abc -liberty ~/VSD/VLSI/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+show
+```
+Netlist Dot File
+![netlist file](https://github.com/Rahul-Sivesh-11/RISC-V_Tape_Out_Week_1/blob/main/Images/2025-09-27%20(7).png)
+#### Statistics
+```bash
+=== opt_check2 ===
 
+   Number of wires:                  3
+   Number of wire bits:              3
+   Number of public wires:           3
+   Number of public wire bits:       3
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                  1
+     $_OR_                           1
+```
+then, exit from yosys
+```bash
+exit
+```
+
+---
+### Lab 3
+To see the verilog logic of Lab3.
+```bash
+gedit opt_check3.v
+```
+![verilog code](https://github.com/Rahul-Sivesh-11/RISC-V_Tape_Out_Week_1/blob/main/Images/2025-09-27%20(8).png)
+#### Code explanation
+- if c is true, then the output is b, else 0.
+- if c is b then the value of y be b or 0 depends on the value of a.
+
+Enter inside the yosys by the command:
+```bash
+yosys
+```
+Inside yosys
+```bash
+read_liberty -lib ~/VSD/VLSI/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+read_verilog opt_check3.v
+synth -top opt_check3
+opt_clean -purge
+abc -liberty ~/VSD/VLSI/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+show
+```
+Netlist Dot File
+![netist file](https://github.com/Rahul-Sivesh-11/RISC-V_Tape_Out_Week_1/blob/main/Images/2025-09-27%20(9).png)
+#### Statistics:
+```bash
+=== opt_check3 ===
+
+   Number of wires:                  5
+   Number of wire bits:              5
+   Number of public wires:           4
+   Number of public wire bits:       4
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                  2
+     $_ANDNOT_                       1
+     $_NAND_                         1
+```
+---
+
+# Sequential Logic Optimization labs
+
+### Lab 4
+To see the logic of verilog code for lab 4.
+```bash
+gedit dff_const1.v
+```
+![code](https://github.com/Rahul-Sivesh-11/RISC-V_Tape_Out_Week_1/blob/main/Images/2025-09-27%20(10).png)
+#### Code Analysis
+- At positive edge of the clock:
+  - if reset is high, then the value of q is 0.
+  - if reset is low, then the value of q is 1.
+
+To go inside the yosys, run
+```bash
+yosys
+```
+then, Inside yosys
+```bash
+read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+read_verilog dff_const1.v
+synth -top dff_const1
+dfflibmap -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+show
+```
+### Netlist Dot File
+![netlist file](https://github.com/Rahul-Sivesh-11/RISC-V_Tape_Out_Week_1/blob/main/Images/2025-09-27%20(11).png)
+## Lab 5
+To see the logiv verilog file, run this
+```bash
+gvim dff_const2.v
+```
+![code](https://github.com/Rahul-Sivesh-11/RISC-V_Tape_Out_Week_1/blob/main/Images/2025-09-27%20(12).png)
+### Code logic
+- In all positive edge of reset and clock, the output q will high always.
+- q=1
+Enter into the yosys
+```bash
+yosys
+```
+Inside the yosys, run
+```bash
+read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+read_verilog dff_const2.v
+synth -top dff_const2
+dfflibmap -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+show
+```
+### Netist Dot File
+![netlist file](https://github.com/Rahul-Sivesh-11/RISC-V_Tape_Out_Week_1)
+## Lab 6
+To see the logiv verilog file, run this
+```bash
+gvim dff_const3.v
+```
+![code](https://github.com/Rahul-Sivesh-11/RISC-V_Tape_Out_Week_1/blob/main/Images/2025-09-27%20(14).png)
+Entering into the yosys
+```bash
+yosys
+```
+
+Inside yosys
+```bash
+read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+read_verilog dff_const3.v
+synth -top dff_const3
+dfflibmap -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+show
+```
+### Netlist dot File
+![netlist file](https://github.com/Rahul-Sivesh-11/RISC-V_Tape_Out_Week_1/blob/main/Images/2025-09-27%20(15).png)
+## Summary
+### Combinational Optimization Methods
+- Constant Propagation: Substitutes fixed logic values for signals, reducing gate count and power usage.
+- Boolean Simplification: Applies techniques such as Karnaugh maps or the Quine–McCluskey algorithm to minimize logic expressions.
+### Sequential Optimization Methods
+- State Reduction: Streamlines FSMs by eliminating redundant states, lowering flip-flop usage and transition complexity.
+- Retiming: Shifts registers across logic paths to balance delays and achieve better timing.
+- Logic Cloning: Replicates registers or logic to split high fanout, aiding in faster timing closure.
+## Lab Outcomes
+- Optimized circuits demonstrated fewer transistors, reduced logic depth, and smaller area usage.
+- Certain flip-flops were replaced with constant values, leading to resource savings.
+- Generated dot-file visualizations verified the simplifications in the synthesized netlists.
