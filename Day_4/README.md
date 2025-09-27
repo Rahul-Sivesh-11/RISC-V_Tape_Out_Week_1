@@ -48,7 +48,7 @@ Always write synthesizable, deterministic RTL with clear coding style to minimiz
 - Executes statements in the written order (sequentially).
 - Each assignment completes before the next starts.
 - Execution: Immediate.
-- Best used for: Combinational logic <prev>always @(*).</prev>
+- Best used for: Combinational logic <prev> always @(*) </prev>
 #### <= (Non-blocking assignment):
 - All assignments are evaluated first, then updated together at the end of the time step.
 - Execution: Parallel.
