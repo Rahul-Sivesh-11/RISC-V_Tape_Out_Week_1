@@ -74,6 +74,73 @@ then,
 cd ~/vcd
 ./a.out
 gtkwave tb_ternary_operator_mux.vcd
+```
 ![gtk wave](https://github.com/Rahul-Sivesh-11/RISC-V_Tape_Out_Week_1/blob/main/Images/2025-09-27%20(17).png)
+To view the verilog file 
+```bash
+gedit ternary_operator_mux.v
+Write down the given code
+```
+<pre>module ternary_operator_mux (input i0, input i1, input sel, output y);
+       assign y = sel?i1:i0;
+       endmodule</pre>
+ #### Enter into the yosys by running it in the verilog_files directory:
+```bash
+cd ~/vsd/VLSI/sky130RTLDesignAndSynthesisWorkshop/verilog_files
+yosys
+```
+Inside yosys, run
+```bash
+read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+read_verilog ternary_operator_mux.v
+synth -top  ternary_operator_mux
+abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+show
+```
+![netlist dot file](https://github.com/Rahul-Sivesh-11/RISC-V_Tape_Out_Week_1/blob/main/Images/2025-09-27%20(18).png)
+## GLS of Ternary Operator MUX
+Gate-Level Simulation is carried out on the synthesized netlist (ternary_operator_mux_net.v). This step verifies that the multiplexer design functions correctly after synthesis, using real standard-cell implementations and accounting for delays if they are included in the model.
+```bash
+iverilog -o ~/vsd/a.out ../my_lib/verilog_model/primitives.v  ../my_lib/verilog_model/sky130_fd_sc_hd.v ternary_operator_mux_net.v tb_ternary_operator_mux.v
+cd ~vsd
+./a.out
+gtkwave tb_ternary_operator_mux.vcd
+```
+![gtk wave](https://github.com/Rahul-Sivesh-11/RISC-V_Tape_Out_Week_1/blob/main/Images/2025-09-27%20(19).png)
+## Lab 2
+
+```bash
+iverilog -o ~/vcd/a.out bad_mux.v tb_bad_mux.v
+```
+then,
+```bash
+cd ~/vcd
+./a.out
+gtkwave tb_bad_mux.vcd
+```
+![gtk wave](https://github.com/Rahul-Sivesh-11/RISC-V_Tape_Out_Week_1/blob/main/Images/2025-09-27%20(19).png)
+To view the verilog file 
+```bash
+gedit bad_mux.v
+```
+![code](https://github.com/Rahul-Sivesh-11/RISC-V_Tape_Out_Week_1/blob/main/Images/2025-09-27%20(21).png)
+#### Enter into the yosys by running it in the verilog_files directory:
+```bash
+cd ~/vsd/VLSI/sky130RTLDesignAndSynthesisWorkshop/verilog_files
+yosys
+```
+Inside yosys, run
+```bash
+read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+read_verilog bad_mux.v
+synth -top  bad_mux
+abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+show
+```
+#### Net List Dot File
+![net dot file](https://github.com/Rahul-Sivesh-11/RISC-V_Tape_Out_Week_1/blob/main/Images/2025-09-27%20(22).png)
+
+
+
 
 
