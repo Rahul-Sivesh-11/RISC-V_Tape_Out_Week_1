@@ -143,5 +143,31 @@ show
 ```
 ![image](https://github.com/Rahul-Sivesh-11/RISC-V_Tape_Out_Week_1/blob/main/Images/2025-09-27%20(3).png)
 Netlist Dot file
-![netlist dotfile](
+![netlist dotfile](https://github.com/Rahul-Sivesh-11/RISC-V_Tape_Out_Week_1/blob/main/Images/2025-09-27%20(4).png)
+### Statistics
+```bash
+=== opt_check ===
+
+   Number of wires:                  3
+   Number of wire bits:              3
+   Number of public wires:           3
+   Number of public wire bits:       3
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                  1
+     $_AND_                          1
+```
+then, exit from yosys
+```bash
+exit
+```
+
+---
+### Lab 2:
+To see the verilog logic of Lab 2.
+```bash
+gedit opt_check2.v
+```
+
 
