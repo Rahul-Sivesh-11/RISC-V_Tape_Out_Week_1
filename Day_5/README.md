@@ -115,6 +115,7 @@ Netlist Dot File is:
 ![netlist](https://github.com/Rahul-Sivesh-11/RISC-V_Tape_Out_Week_1/blob/main/Images/2025-09-27%20(35).png)
 ### Lab 4: Incomplete Case Handling
 The bad_case verilog code is
+
 ![code](https://github.com/Rahul-Sivesh-11/RISC-V_Tape_Out_Week_1/blob/main/Images/2025-09-27%20(36).png)
 gtkwave is:
 ![gtk wave](https://github.com/Rahul-Sivesh-11/RISC-V_Tape_Out_Week_1/blob/main/Images/2025-09-27%20(37).png)
