@@ -48,8 +48,32 @@ Always write synthesizable, deterministic RTL with clear coding style to minimiz
 - Executes statements in the written order (sequentially).
 - Each assignment completes before the next starts.
 - Execution: Immediate.
-- Best used for: Combinational logic <prev> always @(*) </prev>
+- Best used for: Combinational logic always @(*).
+- ```verilog
+            always @(*)
+                y = a & b;
+           ```
 #### <= (Non-blocking assignment):
 - All assignments are evaluated first, then updated together at the end of the time step.
 - Execution: Parallel.
 - Best used for: Sequential logic (clocked always @(posedge clk)).
+-  ```verilog
+            always @(posedge clk)
+            q <= d;
+          ```
+---
+## Labs
+
+### Lab 1
+
+```bash
+iverilog -o ~/vcd/a.out ternary_operator_mux.v tb_ternary_operator_mux.v
+```
+then,
+```bash
+cd ~/vcd
+./a.out
+gtkwave tb_ternary_operator_mux.vcd
+![gtk wave](https://github.com/Rahul-Sivesh-11/RISC-V_Tape_Out_Week_1/blob/main/Images/2025-09-27%20(17).png)
+
+
