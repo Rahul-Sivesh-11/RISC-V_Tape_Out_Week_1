@@ -276,3 +276,143 @@ abc -liberty ~/vsd/VLSI/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd_
 show
 show -format png
 ```
+### Verification of Sub-module Synthesis:
+
+#### Netlist Dot file
+![netlist](https://github.com/Rahul-Sivesh-11/RISC-V_Tape_Out_Week_1/blob/main/Images/2025-09-27%20(44).png)
+Staistics:
+
+```bash
+=== sub_module1 ===
+
+   Number of wires:                  3
+   Number of wire bits:              3
+   Number of public wires:           3
+   Number of public wire bits:       3
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                  1
+     $_AND_                          1
+```
+---
+
+## The Various Flip-Flop Coding Styles  
+
+### 1. **Asynchronous Reset Flip-Flop**
+
+```verilog
+always @(posedge clk or posedge rst) begin
+    if (rst)
+        q <= 0;
+    else
+        q <= d;
+end
+```
+- Output q resets immediately when rst is asserted.
+
+- Useful for global reset in ASIC/FPGA designs.
+
+
+### 2. **Asynchronous Set Flip-Flop**
+```verilog
+always @(posedge clk or posedge set) begin
+    if (set)
+        q <= 1;
+    else
+        q <= d;
+end
+```
+
+- Output q is set to 1 immediately when set is asserted.
+
+- Helps initialize signals quickly.
+
+### 3. **Synchronous Reset Flip-Flop**
+```verilog
+always @(posedge clk) begin
+    if (rst)
+        q <= 0;
+    else
+        q <= d;
+end
+```
+  - The output `q` is reset to `0` only on the active clock edge when `rst` is asserted.  
+  - Keeps all flip-flops aligned with the clock and avoids timing issues.
+
+
+### 4. **Synchronous Set Flip-Flop**
+```verilog
+always @(posedge clk) begin
+    if (set)
+        q <= 1;
+    else
+        q <= d;
+end
+```
+  - The output `q` is set to `1` only on the active clock edge when `set` is asserted.  
+  - Ensures predictable and controlled behavior for sequential logic.
+
+---
+
+## Synthesis and Simulation of Flip-FLops
+
+### Simulation
+
+Firstly, iverilog simulation of the flipflop is done, to verify its functionality
+
+Locate the file in the verilog_files folder
+```bash
+iverilog -o ~/vcd/photos/dff_syncres.vvp dff_syncres.v tb_dff_syncres.v
+```
+
+then run the complied file
+```bash
+cd ~/vcd/photos           
+vvp dff_syncres.vvp
+```
+
+Now, run the .vcd file through GTKWave and check its waveform
+```bash
+gtkwave tb_dff_syncres.vcd
+```
+
+Waveform:
+![waveform](https://github.com/Rahul-Sivesh-11/RISC-V_Tape_Out_Week_1/blob/main/Images/2025-09-27%20(45).png)
+### Synthesis
+
+Synthesis is done through yosys.
+```bash
+yosys 
+```
+then, Inside yosys
+
+```bash
+read_liberty -lib ~/vsd/VLSI/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+read_verilog ~/vsd/VLSI/sky130RTLDesignAndSynthesisWorkshop/verilog_files/dff_syncres.v
+synth -top dff_syncres
+dfflibmap -liberty ~/vsd/VLSI/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+abc -liberty ~/vsd/VLSI/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+show
+show -format png
+```
+
+### Final Netlist Dot File
+![netlist](https://github.com/Rahul-Sivesh-11/RISC-V_Tape_Out_Week_1/blob/main/Images/2025-09-27%20(46).png)
+## Summary
+### Timing Libraries
+- .lib files (e.g., sky130_fd_sc_hd__tt_025C_1v80.lib) specify timing and electrical characteristics of standard cells, enabling accurate synthesis and timing verification.
+### Synthesis Methods
+- Hierarchical Synthesis: Optimizes sub-modules independently, giving finer control over area and performance.
+- Flat Synthesis: Processes the whole design as one block; simpler, but may lose some local optimizations.
+- Flattening Option: A hierarchical design can be flattened later if required.
+### Efficient Flip-Flop Coding
+- Asynchronous Reset/Set:
+  - Responds immediately, independent of the clock.
+  - Useful for global initialization.
+- Synchronous Reset/Set:
+  - Updates only on the clock edge.
+  - Provides predictable timing and avoids glitches.
+### Workflow Overview
+- Simulation: iverilog → vvp → GTKWave
+- Synthesis (Yosys): Load library → read Verilog → synth → dfflibmap → abc → show
