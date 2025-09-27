@@ -120,4 +120,26 @@ To see the verilog logic of Lab1.
 ```bash
 gedit opt_check.v
 ```
+![Verilog code](https://github.com/Rahul-Sivesh-11/RISC-V_Tape_Out_Week_1/blob/main/Images/2025-09-27%20(2).png)
+#### Explanation:
+
+- assign y = a ? b : 0; means:
+- If a is true, y is assigned the value of b.
+- If a is false, y is 0.
+
+#### Lanch yosys:
+```bash
+yosys
+```
+
+#### 6. **Run this command inside yosys:**
+```bash
+read_liberty -lib ~/vsd/VLSI/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+read_verilog opt_check.v
+synth -top opt_check
+opt_clean -purge
+abc -liberty ~/vsd/VLSI/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+show
+```
+
 
