@@ -121,19 +121,37 @@ gtkwave is:
 Netlist Dot File is:
 ![netlist dotfile](https://github.com/Rahul-Sivesh-11/RISC-V_Tape_Out_Week_1/blob/main/Images/2025-09-27%20(38).png)
 ## 4. For Loops in Verilog
-
-A **for loop** is used within procedural blocks (`initial`, `always`, tasks/functions) to execute statements multiple times based on a loop counter.
-
+- Executes a group of statements multiple times for a defined count within an always block.
+- Commonly applied for iterative operations in both combinational and sequential logic.
+- A for loop can only be written inside procedural blocks.
 ### Syntax
-
+**Syntax:**
 ```verilog
 for (initialization; condition; increment) begin
     // Statements to execute
 end
 ```
+### 2. `generate for` Loop
 
-- Must be inside procedural blocks.
-- Synthesizable only if the number of iterations is fixed at compile time.
+- Used at **compile/synthesis time** to generate multiple instances of modules or repeated RTL structures.
+- Creates hardware replication.
+
+**Syntax:**
+```verilog
+genvar i;  // loop variable must be declared as genvar
+
+generate
+    for (i = 0; i < N; i = i + 1) begin : block_name
+        // Code to be generated
+    end
+endgenerate
+
+```
+## Labs on `for` loop
+
+## `mux_generate.v`
+
+**Verilog Code**
 
 #### Example: 4-to-1 MUX Using a For Loop
 
@@ -153,30 +171,60 @@ module mux_4to1_for_loop (
     end
 endmodule
 ```
+![verilog code](https://github.com/Rahul-Sivesh-11/RISC-V_Tape_Out_Week_1/blob/main/Images/2025-09-27%20(47).png)
+#### GTK wave form
+![wave form](https://github.com/Rahul-Sivesh-11/RISC-V_Tape_Out_Week_1/blob/main/Images/2025-09-27%20(48).png)
+#### Netlist Dot File
+![netlis](https://github.com/Rahul-Sivesh-11/RISC-V_Tape_Out_Week_1/blob/main/Images/2025-09-27%20(49).png)
+## `demux_generate.v`
 
----
+**Verilog Code**
 
-## 5. Generate Blocks in Verilog
+Verilog Code:
+![verilog code](https://github.com/Rahul-Sivesh-11/RISC-V_Tape_Out_Week_1/blob/main/Images/2025-09-27%20(50).png)
+#### GTK wave Form
+![wave](https://github.com/Rahul-Sivesh-11/RISC-V_Tape_Out_Week_1/blob/main/Images/2025-09-27%20(51).png)
+#### Netlist Dot File
+![netlist](https://github.com/Rahul-Sivesh-11/RISC-V_Tape_Out_Week_1/blob/main/Images/2025-09-27%20(52).png)
+## Ripple Carry Adder
+- Bitwise Addition: Each stage of the RCA consists of a full adder that takes two input bits (A and B) along with a carry-in.
+- First Stage: The least significant bits (LSBs) of A and B are added in the first full adder along with the initial carry-in (usually 0).
+- Carry Propagation: The carry-out from the first full adder becomes the carry-in for the next stage.
+- Sequential Processing: This process repeats for each higher-order bit, with carries propagating (rippling) through the chain of adders.
+- Final Carry: The last full adder generates the most significant sum bit along with a final carry-out, which may indicate an overflow.
+- Operation Speed: Since each full adder must wait for the carry from the previous stage, the addition is completed only after the carry ripples through all adders.
+![ripple carry adder](https://github.com/Rahul-Sivesh-11/RISC-V_Tape_Out_Week_1/blob/main/Images/2025-09-27%20(39).png)
+**Verilog Code**
 
-A **generate block** is used to create hardware structures such as module instances or logic at compile time. Typically used with `for` loops and the `genvar` keyword.
-
-#### Example
+RCA (`rca.v`): _8 bit Ripple Carry Adder_
 
 ```verilog
+module rca (input [7:0] num1 , input [7:0] num2 , output [8:0] sum);
+wire [7:0] int_sum;
+wire [7:0]int_co;
+
 genvar i;
 generate
-    for (i = 0; i < 4; i = i + 1) begin : gen_loop
-        and_gate and_inst (.a(in[i]), .b(in[i+1]), .y(out[i]));
-    end
+        for (i = 1 ; i < 8; i=i+1) begin
+                fa u_fa_1 (.a(num1[i]),.b(num2[i]),.c(int_co[i-1]),.co(int_co[i]),.sum(int_sum[i]));
+        end
+
 endgenerate
+fa u_fa_0 (.a(num1[0]),.b(num2[0]),.c(1'b0),.co(int_co[0]),.sum(int_sum[0]));
+
+
+assign sum[7:0] = int_sum;
+assign sum[8] = int_co[7];
+endmodule
 ```
 
----
+FA (`fa.v`): _1 bit Full Adder_
 
-## 6. What is an RCA (Ripple Carry Adder)?
-
-An RCA adds binary numbers using a chain of full adders. To add `n` bits, you need `n` full adders. Each carry-out connects to the carry-in of the next stage.
-![ripple carry adder](https://github.com/Rahul-Sivesh-11/RISC-V_Tape_Out_Week_1/blob/main/Images/2025-09-27%20(39).png)
+```verilog 
+module fa (input a , input b , input c, output co , output sum);
+        assign {co,sum}  = a + b + c ;
+endmodule
+```
 ## 7. Labs on Loops and Generate Blocks
 
 ### Lab 9: 4-to-1 MUX Using For Loop
@@ -274,6 +322,10 @@ assign sum[7:0] = int_sum;
 assign sum[8] = int_co[7];
 endmodule
 ```
+#### Waveform
+![Waveform](https://github.com/Rahul-Sivesh-11/RISC-V_Tape_Out_Week_1/blob/main/Images/2025-09-27%20(53).png)
+#### Netlist Dot File
+![Netlist](https://github.com/Rahul-Sivesh-11/RISC-V_Tape_Out_Week_1/blob/main/Images/2025-09-27%20(55).png)
 **Full Adder Module:**
 ```verilog
 module fa (input a, input b, input c, output co, output sum);
