@@ -284,7 +284,7 @@ To see the logiv verilog file, run this
 ```bash
 gvim dff_const2.v
 ```
-![code](https://github.com/Rahul-Sivesh-11/RISC-V_Tape_Out_Week_1/blob/main/Images/2025-09-27%20(12).png)
+![code](https://github.com/Rahul-Sivesh-11/RISC-V_Tape_Out_Week_1/blob/main/Images/2025-09-27%20(13).png)
 ### Code logic
 - In all positive edge of reset and clock, the output q will high always.
 - q=1
