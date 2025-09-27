@@ -139,6 +139,60 @@ show
 ```
 #### Net List Dot File
 ![net dot file](https://github.com/Rahul-Sivesh-11/RISC-V_Tape_Out_Week_1/blob/main/Images/2025-09-27%20(22).png)
+## GLS of Ternary Operator MUX
+Gate-Level Simulation is performed using the synthesized netlist (bad_mux_net.v). This helps verify the functional correctness of the design after synthesis, using the actual standard cells and any delays (if modeled)
+
+```bash
+iverilog -o ~/vsd/a.out ../my_lib/verilog_model/primitives.v  ../my_lib/verilog_model/sky130_fd_sc_hd.v bad_mux_net.v tb_bad_mux.v
+cd ~/vsd
+./a.out
+gtkwave tb_bad_mux.vcd
+```
+![wave form](https://github.com/Rahul-Sivesh-11/RISC-V_Tape_Out_Week_1/blob/main/Images/2025-09-27%20(23).png)
+### Lab 3
+```bash
+iverilog -o ~/vcd/a.out blocking_caveat.v tb_blocking_caveat.v
+```
+then,
+```bash
+cd ~/vcd
+./a.out
+gtkwave tb_blocking_caveat.vcd
+```
+![ wave form](https://github.com/Rahul-Sivesh-11/RISC-V_Tape_Out_Week_1/blob/main/Images/2025-09-27%20(24).png)
+To view the verilog file 
+```bash
+gedit blocking_caveat.v
+```
+![code](https://github.com/Rahul-Sivesh-11/RISC-V_Tape_Out_Week_1/blob/main/Images/2025-09-27%20(24).png)
+#### Enter into the yosys by running it in the verilog_files directory:
+```bash
+cd ~/vsd/VLSI/sky130RTLDesignAndSynthesisWorkshop/verilog_files
+yosys
+```
+Inside yosys, run
+```bash
+read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+read_verilog blocking_caveat.v
+synth -top  blocking_caveat
+abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+show
+```
+![netlist dot file](https://github.com/Rahul-Sivesh-11/RISC-V_Tape_Out_Week_1/blob/main/Images/2025-09-27%20(24).png)
+## GLS of Blocking Caveat MUX
+The Gate-Level Simulation is executed on the synthesized netlist (blocking_caveat_mux_net.v). This process validates the functional correctness of the multiplexer after synthesis, using the actual standard-cell library and considering delays if they are modeled.
+```bash
+iverilog -o ~/vsd/a.out ../my_lib/verilog_model/primitives.v  ../my_lib/verilog_model/sky130_fd_sc_hd.v blocking_caveat_net.v tb_blocking_caveat.v
+cd ~/vsd
+./a.out
+gtkwave tb_blocking_caveat.vcd
+```
+![wave](https://github.com/Rahul-Sivesh-11/RISC-V_Tape_Out_Week_1/blob/main/Images/2025-09-27%20(27).png)
+## Summary
+- Gate-Level Simulation (GLS): Ensures the synthesized netlist is functionally correct, meets timing requirements, and supports testability.
+- Synthesis–Simulation Mismatch: Prevent mismatches by writing clear, synthesizable RTL code.
+- Blocking vs. Non-blocking Assignments: Use = for combinational logic, and <= for sequential (clocked) logic.
+
 
 
 
